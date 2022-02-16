@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  servidor:
+    image: fjortegan/dwes:laravel
+    stdin_open: true
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - ./laravel:/var/www/html/
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  db:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db-data:/var/lib/mysql/
+    environment:
+      MYSQL_DATABASE: smartcafe
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=1
