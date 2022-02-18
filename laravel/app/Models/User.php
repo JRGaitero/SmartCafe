@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -29,5 +30,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    //TODO: hasOne
+    public function profile(): ?HasOne
+    {
+        switch ($this->attributes['role']) {
+            case 'school':
+                return $this->hasOne(School::class);
+            case 'student':
+                return $this->hasOne(Student::class);
+            case 'cafe':
+                return $this->hasOne(Cafe::class);
+            default:
+                return null;
+        }
+    }
 }
