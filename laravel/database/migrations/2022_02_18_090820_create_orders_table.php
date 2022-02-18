@@ -14,9 +14,8 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id("id");
-            $table->unsignedInteger("student_id");
-            $table->foreign("student_id")->references("id")->on("student")->onDelete('cascade');
+            $table->id();
+            $table->foreignId("student_id")->constrained();
             $table->double("amount");
             $table->date("date");
             $table->boolean("is_completed");
