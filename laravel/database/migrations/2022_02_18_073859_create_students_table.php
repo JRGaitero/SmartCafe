@@ -15,15 +15,12 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->string('name');
             $table->string('surname');
             $table->string('course');
             $table->string('birthday');
-            $table->unsignedBigInteger('school_id');
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('school_id')->references('id')->on('schools');
+            $table->foreignId('school_id')->constrained();
         });
     }
 
