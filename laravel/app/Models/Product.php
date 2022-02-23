@@ -9,6 +9,7 @@ class Product extends Model
 {
 
     protected $fillable=["id","cafeteria_id","name","price","descripcion","image","category"];
+    public $timestamps = false;
 
     public function cafe(){
 

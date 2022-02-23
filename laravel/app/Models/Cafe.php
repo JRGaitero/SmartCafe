@@ -12,6 +12,8 @@ class Cafe extends Model
 {
     protected $table = 'cafes';
 
+    public $timestamps = false;
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
