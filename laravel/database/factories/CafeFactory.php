@@ -2,28 +2,29 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-
 use App\Models\User;
 
-class SchoolFactory extends Factory
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class CafeFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
      * @return array
      */
-    public function definition(): array
+    public function definition()
     {
         return [
             "user_id"=>User::factory()->create()->id,
-            'name' => $this->faker->name(),
-            'location' => $this->faker->word(),
-            'is_open' => ''
+            "name"=>$this->faker->name(),
+            "is_open"=>"",
+            "location"=>$this->faker->word(),
+
         ];
     }
-
-    public function isOpen(): SchoolFactory
+    public function isOpen(): CafeFactory
     {
         return $this->state(function () {
             return [
@@ -32,7 +33,7 @@ class SchoolFactory extends Factory
         });
     }
 
-    public function isNotOpen(): SchoolFactory
+    public function isNotOpen(): CafeFactory
     {
         return $this->state(function () {
             return [

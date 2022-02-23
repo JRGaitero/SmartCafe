@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class School extends Model
 {
     protected $table = 'schools';
+    public $timestamps = false;
 
     public function user(): BelongsTo
     {

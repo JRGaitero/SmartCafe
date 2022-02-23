@@ -11,6 +11,7 @@ class Order extends Model
 {
 
     protected $fillable=["id","student_id","amount","date","is_completed","payment_info"];
+    public $timestamps = false;
 
     public function student() :HasOne {
 
