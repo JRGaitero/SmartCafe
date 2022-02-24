@@ -19,8 +19,8 @@ class Order extends Model
 
     }
 
-    public function product() :HasMany {
-        return $this->hasMany(Product::class);
+    public function product()  {
+        return $this->belongsToMany(Product::class);
     }
 
     use HasFactory;

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\DocBlock\StandardTagFactory;
 
 class ProductFactory extends Factory
@@ -17,6 +18,9 @@ class ProductFactory extends Factory
 
 
         return [
+            "cafe_id"=>function(){
+                return DB::table("cafes")->inRandomOrder()->first()->id;
+            },
             "name"=>$this->faker->name(),
             "price"=>$this->faker->randomFloat(2,1,20),
             "description"=>$this->faker->sentence(3,6),
@@ -26,7 +30,7 @@ class ProductFactory extends Factory
         ];
             }
 
-    public function bebida()
+    public function drink()
     {
         return $this->state(function (array $attributes) {
             return [
@@ -34,7 +38,7 @@ class ProductFactory extends Factory
             ];
         });
     }
-    public function comida()
+    public function food()
     {
         return $this->state(function (array $attributes) {
             return [
