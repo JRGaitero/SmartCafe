@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class School extends Model
 {
+    protected $fillable = ['name', 'location', 'is_open'];
     protected $table = 'schools';
     public $timestamps = false;
 

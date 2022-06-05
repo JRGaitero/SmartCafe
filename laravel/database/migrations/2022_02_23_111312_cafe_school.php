@@ -14,8 +14,8 @@ class CafeSchool extends Migration
     public function up()
     {
         Schema::create('cafe_school', function (Blueprint $table) {
-            $table->foreignId("cafe_id")->constrained();
-            $table->foreignId("school_id")->constrained();
+            $table->foreignId("cafe_id")->constrained()->onDelete('cascade');
+            $table->foreignId("school_id")->constrained()->onDelete('cascade');
 
         });
     }
