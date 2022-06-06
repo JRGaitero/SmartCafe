@@ -2,19 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Cafe;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class CafeOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return Product::all();
+        $cafeOrders = [];
+
+        $orders = Order::with(['product' => function($query) use ($id) {
+            $query->where('cafe_id', $id);
+        }])->get();
+
+        foreach ($orders as $order) {
+            if (count($order->product) > 0) {
+                $cafeOrders[] = $order;
+            }
+        }
+
+        return $cafeOrders;
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -25,20 +48,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-
-        ]);
-
-        $product = new Product();
-
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->description = $request->description;
-        $product->category = $request->category;
-        $product->image = $request->file('image')->store('public/images');
-
-        $product->save();
+        //
     }
 
     /**
@@ -49,7 +59,18 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        Product::findOrFail($id);
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -61,14 +82,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
-
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->description = $request->description;
-        $product->category = $request->category;
-
-        $product->save();
+        //
     }
 
     /**
@@ -79,7 +93,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::destroy($id);
-        return $product;
+        //
     }
 }

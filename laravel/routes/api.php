@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CafeOrderController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,3 +33,5 @@ Route::resources([
     'students' => StudentController::class,
     'users' => UserController::class
 ]);
+
+Route::get('cafes/{cafe}/orders', [CafeOrderController::class, 'index']);
