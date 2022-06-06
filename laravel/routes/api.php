@@ -9,6 +9,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CafeOrderController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,17 +22,26 @@ use App\Http\Controllers\CafeOrderController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('profile', function(Request $request) {
+        return auth()->user();
+    });
+
+    Route::resources([
+        'cafes' => CafeController::class,
+        'orders' => OrderController::class,
+        'products' => ProductController::class,
+        'schools' => SchoolController::class,
+        'students' => StudentController::class,
+        'users' => UserController::class
+    ]);
+
+    Route::get('cafes/{cafe}/orders', [CafeOrderController::class, 'index']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::resources([
-    'cafes' => CafeController::class,
-    'orders' => OrderController::class,
-    'products' => ProductController::class,
-    'schools' => SchoolController::class,
-    'students' => StudentController::class,
-    'users' => UserController::class
-]);
 
-Route::get('cafes/{cafe}/orders', [CafeOrderController::class, 'index']);
