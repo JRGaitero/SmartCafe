@@ -2,6 +2,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cafe;
+use App\Models\School;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -47,8 +50,16 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        if ($user->role == 'school') {
+            $userId = School::where('user_id', $user->id)->first();
+        } elseif ($user->role == 'student') {
+            $userId = Student::where('user_id', $user->id)->first();
+        } else {
+            $userId = Cafe::where('user_id', $user->id)->first();
+        }
+
         return response()
-            ->json(['message' => 'Hi '.$user->name.', welcome to home','access_token' => $token, 'token_type' => 'Bearer', ]);
+            ->json(['role' => $user->role, 'id' => $userId->id,'access_token' => $token, 'token_type' => 'Bearer', ]);
     }
 
     // method for user logout and delete token
