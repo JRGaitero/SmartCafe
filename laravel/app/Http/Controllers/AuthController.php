@@ -25,7 +25,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phoneNumber' => $request->phoneNumber,
-            'role' => $request->role
+            'role' => $request->role,
+            'profile_pic' => $request->file('profile_pic')->store('public/images')
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;

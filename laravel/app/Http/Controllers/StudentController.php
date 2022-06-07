@@ -32,6 +32,7 @@ class StudentController extends Controller
         $student->course = $request->course;
         $student->birthday = $request->birthday;
         $student->school_id = $request->school_id;
+        $student->user_id = auth()->user()->id;
 
         $student->save();
     }

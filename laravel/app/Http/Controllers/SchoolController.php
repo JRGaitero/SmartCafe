@@ -30,6 +30,7 @@ class SchoolController extends Controller
         $school->name = $request->name;
         $school->location = $request->location;
         $school->is_open = $request->is_open;
+        $school->user_id = auth()->user()->id;
 
         $school->save();
     }

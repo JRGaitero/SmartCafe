@@ -29,6 +29,7 @@ class CafeController extends Controller
         $cafe->name = $request->name;
         $cafe->location = $request->location;
         $cafe->is_open = $request->is_open;
+        $cafe->user_id = auth()->user()->id;
 
         $cafe->save();
     }
