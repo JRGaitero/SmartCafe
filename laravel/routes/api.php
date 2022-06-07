@@ -10,6 +10,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CafeOrderController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CafeProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     ]);
 
     Route::get('cafes/{cafe}/orders', [CafeOrderController::class, 'index']);
+    Route::get('cafes/{cafe}/products', [CafeProductController::class, 'index']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
