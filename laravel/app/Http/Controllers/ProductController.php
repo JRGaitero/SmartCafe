@@ -37,6 +37,8 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->category = $request->category;
         $product->image = $request->file('image')->store('public/images');
+        $product->category = $request->category;
+        $product->cafe_id = $request->cafe_id;
 
         $product->save();
     }

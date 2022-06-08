@@ -29,6 +29,7 @@ class OrderController extends Controller
         $order->amount = $request->amount;
         $order->date = $request->date;
         $order->is_completed = $request->is_completed;
+        $order->student_id = $request->student_id;
 
         $order->save();
     }

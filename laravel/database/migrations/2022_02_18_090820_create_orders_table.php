@@ -19,7 +19,6 @@ class CreateOrdersTable extends Migration
             $table->double("amount");
             $table->date("date");
             $table->boolean("is_completed");
-            $table->string("payment_info");
         });
     }
 
