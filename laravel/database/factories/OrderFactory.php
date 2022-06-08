@@ -21,8 +21,7 @@ class OrderFactory extends Factory
             },
             "amount"=>$this->faker->randomFloat(2,1,50),
             "date"=>$this->faker->date(),
-            "is_completed"=>$this->faker->boolean(),
-            "payment_info"=>$this->faker->sentence(5,5)
+            "is_completed"=>$this->faker->boolean()
         ];
     }
 
