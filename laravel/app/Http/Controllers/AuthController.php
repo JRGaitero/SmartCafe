@@ -23,14 +23,22 @@ class AuthController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors());
         }
-
-        $user = User::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'phoneNumber' => $request->phoneNumber,
-            'role' => $request->role,
-            'profile_pic' => $request->file('profile_pic')->store('public/images')
-        ]);
+        if ($request->file('profile_pic')) {
+            $user = User::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'phoneNumber' => $request->phoneNumber,
+                'role' => $request->role,
+                'profile_pic' => $request->file('profile_pic')->store('public/images')
+            ]);
+        } else {
+            $user = User::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'phoneNumber' => $request->phoneNumber,
+                'role' => $request->role
+            ]);
+        }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
