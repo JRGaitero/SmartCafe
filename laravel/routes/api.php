@@ -25,6 +25,7 @@ use App\Http\Controllers\CafeProductController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('schools', [SchoolController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('profile', function(Request $request) {
@@ -35,9 +36,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         'cafes' => CafeController::class,
         'orders' => OrderController::class,
         'products' => ProductController::class,
-        'schools' => SchoolController::class,
         'students' => StudentController::class,
         'users' => UserController::class
+    ]);
+
+    Route::resource('schools', SchoolController::class)->except([
+        'index'
     ]);
 
     Route::get('cafes/{cafe}/orders', [CafeOrderController::class, 'index']);
