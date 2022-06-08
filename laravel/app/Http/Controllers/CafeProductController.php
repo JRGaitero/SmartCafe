@@ -14,6 +14,6 @@ class CafeProductController extends Controller
      */
     public function index($id)
     {
-        return Product::all()->where('cafe_id', $id);
+        return Product::where('cafe_id', $id)->get();
     }
 }
