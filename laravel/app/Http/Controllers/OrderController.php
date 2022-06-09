@@ -32,6 +32,7 @@ class OrderController extends Controller
         $order->student_id = $request->student_id;
 
         $order->save();
+        return $order->id;
     }
 
     /**

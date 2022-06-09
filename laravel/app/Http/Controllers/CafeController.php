@@ -32,6 +32,7 @@ class CafeController extends Controller
         $cafe->user_id = auth()->user()->id;
 
         $cafe->save();
+        return $cafe->id;
     }
 
     /**

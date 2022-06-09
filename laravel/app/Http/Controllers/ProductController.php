@@ -41,6 +41,7 @@ class ProductController extends Controller
         $product->cafe_id = $request->cafe_id;
 
         $product->save();
+        return $product->id;
     }
 
     /**

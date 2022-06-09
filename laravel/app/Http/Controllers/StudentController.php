@@ -35,6 +35,7 @@ class StudentController extends Controller
         $student->user_id = auth()->user()->id;
 
         $student->save();
+        return $student->id;
     }
 
     /**

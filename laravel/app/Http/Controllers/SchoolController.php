@@ -33,6 +33,7 @@ class SchoolController extends Controller
         $school->user_id = auth()->user()->id;
 
         $school->save();
+        return $school->id;
     }
 
     /**
