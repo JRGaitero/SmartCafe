@@ -25,10 +25,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-
-        ]);
 
         $product = new Product();
 
