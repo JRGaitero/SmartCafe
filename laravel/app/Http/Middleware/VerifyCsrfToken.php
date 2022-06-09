@@ -12,7 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        'register', 'login', 'schools', 'profile', 'cafes', 'orders', 'products', 'students', 'users',
-        'cafes/{cafe}/orders', 'cafes/{cafe}/products', '/logout'
+        'http://localhost:3000/*'
     ];
 }
