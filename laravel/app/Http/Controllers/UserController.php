@@ -63,7 +63,9 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->phoneNumber = $request->phoneNumber;
         $user->role = $request->role;
-        $user->profile_pic = $request->file('profile_pic')->store('public/images');
+        if ($request->file('profile_pic')) {
+            $user->profile_pic = $request->file('profile_pic')->store('public/images');
+        }
 
         $user->save();
     }
