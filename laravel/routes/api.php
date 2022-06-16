@@ -28,11 +28,9 @@ Route::post('login', [AuthController::class, 'login']);
 Route::get('schools', [SchoolController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('profile', function(Request $request) {
-        return auth()->user();
-    });
+    Route::get('profile', [AuthController::class, 'profile']);
 
-    Route::resources([
+    Route::apiResources([
         'cafes' => CafeController::class,
         'orders' => OrderController::class,
         'products' => ProductController::class,
@@ -40,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         'users' => UserController::class
     ]);
 
-    Route::resource('schools', SchoolController::class)->except([
+    Route::apiResource('schools', SchoolController::class)->except([
         'index'
     ]);
 

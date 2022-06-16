@@ -75,4 +75,9 @@ class AuthController extends Controller
             'message' => 'You have successfully logged out and the token was successfully deleted'
         ];
     }
+
+    public function profile()
+    {
+        return School::with('user')->where('user_id', auth()->user()->id)->get();
+    }
 }
