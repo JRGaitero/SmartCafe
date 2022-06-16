@@ -44,7 +44,7 @@ class SchoolController extends Controller
      */
     public function show($id)
     {
-        School::findOrFail($id);
+        return School::findOrFail($id);
     }
 
     /**

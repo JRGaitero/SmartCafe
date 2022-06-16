@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -49,7 +50,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        Product::findOrFail($id);
+        return Product::findOrFail($id);
     }
 
     /**
@@ -68,7 +69,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->category = $request->category;
         if ($request->file('image')) {
-            $product->image = $request->file('image')->store('public/images');
+            $product->image = Storage::url($request->file('image')->store('public/images'));
         }
 
         $product->save();

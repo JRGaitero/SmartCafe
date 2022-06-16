@@ -8,6 +8,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
@@ -23,27 +24,22 @@ class AuthController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors());
         }
+        $user = new User();
+
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->phoneNumber = $request->phoneNumber;
+        $user->role = $request->role;
         if ($request->file('profile_pic')) {
-            $user = User::create([
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'phoneNumber' => $request->phoneNumber,
-                'role' => $request->role,
-                'profile_pic' => $request->file('profile_pic')->store('public/images')
-            ]);
-        } else {
-            $user = User::create([
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'phoneNumber' => $request->phoneNumber,
-                'role' => $request->role
-            ]);
+            $user->profile_pic = Storage::url($request->file('profile_pic')->store('public/images'));
         }
+
+        $user->save();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()
-            ->json(['data' => $user,'access_token' => $token, 'token_type' => 'Bearer', ]);
+            ->json(['data' => $user,'access_token' => $token, 'token_type' => 'Bearer']);
     }
 
     public function login(Request $request)

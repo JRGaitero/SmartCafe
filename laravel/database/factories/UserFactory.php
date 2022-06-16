@@ -26,6 +26,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'password' => $this->faker->password(),
             'phoneNumber' => $this->faker->numerify('### ### ###'),
+            "profile_pic"=>$this->faker->imageUrl(640,480,"food",true),
             'role' => '',
             'remember_token' => Str::random(10),
             'created_at' => now(),

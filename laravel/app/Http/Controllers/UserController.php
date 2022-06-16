@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -29,9 +30,12 @@ class UserController extends Controller
         $user = new User();
 
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->phoneNumber = $request->phoneNumber;
         $user->role = $request->role;
+        if ($request->file('profile_pic')) {
+            $user->profile_pic = Storage::url($request->file('profile_pic')->store('public/images'));
+        }
 
         $user->save();
         return $user->id;
@@ -45,7 +49,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        User::findOrFail($id);
+        return User::findOrFail($id);
     }
 
     /**
