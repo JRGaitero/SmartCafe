@@ -32,6 +32,13 @@ class OrderController extends Controller
         $order->student_id = $request->student_id;
 
         $order->save();
+
+        $productsIds = str_split($request->products_ids);
+
+        foreach ($productsIds as $id) {
+            $order->product()->attach((int)$id);
+        }
+
         return $order->id;
     }
 

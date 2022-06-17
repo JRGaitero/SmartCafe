@@ -78,6 +78,15 @@ class AuthController extends Controller
 
     public function profile()
     {
-        return School::with('user')->where('user_id', auth()->user()->id)->get();
+        switch (auth()->user()->role) {
+            case 'school':
+                return School::with('user')->where('user_id', auth()->user()->id)->get();
+            case 'student':
+                return Student::with('user')->where('user_id', auth()->user()->id)->get();
+            case 'cafe':
+                return Cafe::with('user')->where('user_id', auth()->user()->id)->get();
+        }
+
+
     }
 }
