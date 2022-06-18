@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('cafes/{cafe}/products', [CafeProductController::class, 'index']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::post('users/password', [UserController::class, 'passwordUpdate']);
 });
 
 

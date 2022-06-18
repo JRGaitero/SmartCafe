@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -63,12 +64,20 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->phoneNumber = $request->phoneNumber;
-        $user->role = $request->role;
+        if ($request->email) {
+            $user->email = $request->email;
+        }
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        if ($request->phoneNumber) {
+            $user->phoneNumber = $request->phoneNumber;
+        }
+        if ($request->role) {
+            $user->role = $request->role;
+        }
         if ($request->file('profile_pic')) {
-            $user->profile_pic = $request->file('profile_pic')->store('public/images');
+            $user->profile_pic = Storage::url($request->file('profile_pic')->store('public/images'));
         }
 
         $user->save();
@@ -84,5 +93,18 @@ class UserController extends Controller
     {
         $user = User::destroy($id);
         return $user;
+    }
+
+    public function passwordUpdate(Request $request) {
+        if (!Hash::check($request->password, auth()->user()->password))
+        {
+            return response()
+                ->json(['message' => 'Unauthorized'], 401);
+        }
+        $user = User::findOrFail(auth()->user()->id);
+
+        $user->password = Hash::make($request->newPassword);
+
+        $user->save();
     }
 }
