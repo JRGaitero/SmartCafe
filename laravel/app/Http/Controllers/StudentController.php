@@ -63,8 +63,12 @@ class StudentController extends Controller
         $student->name = $request->name;
         $student->surname = $request->surname;
         $student->course = $request->course;
-        $student->birthday = $request->birthday;
-        $student->school_id = $request->school_id;
+        if ($request->birthday) {
+            $student->birthday = $request->birthday;
+        }
+        if ($request->school_id) {
+            $student->school_id = $request->school_id;
+        }
 
         $student->save();
     }
