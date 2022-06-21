@@ -33,7 +33,7 @@ class OrderController extends Controller
 
         $order->save();
 
-        $productsIds = str_split($request->products_ids);
+        $productsIds = explode('-', $request->products_ids);
 
         foreach ($productsIds as $id) {
             $order->product()->attach((int)$id);
