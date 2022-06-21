@@ -64,9 +64,15 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        $order->amount = $request->amount;
-        $order->date = $request->date;
-        $order->is_completed = $request->is_completed;
+        if ($request->amount) {
+            $order->amount = $request->amount;
+        }
+        if ($request->date) {
+            $order->date = $request->date;
+        }
+        if ($request->is_completed) {
+            $order->is_completed = $request->is_completed;
+        }
 
         $order->save();
     }
