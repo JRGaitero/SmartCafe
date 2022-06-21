@@ -60,9 +60,15 @@ class StudentController extends Controller
     {
         $student = Student::findOrFail($id);
 
-        $student->name = $request->name;
-        $student->surname = $request->surname;
-        $student->course = $request->course;
+        if ($request->name) {
+            $student->name = $request->name;
+        }
+        if ($request->surname) {
+            $student->surname = $request->surname;
+        }
+        if ($request->course) {
+            $student->course = $request->course;
+        }
         if ($request->birthday) {
             $student->birthday = $request->birthday;
         }
